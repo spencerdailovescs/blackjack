@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+	text-align: center;	
+}
+</style>
+<meta charset="utf-8"/>
+<script>
+function load() {
+	// Step 1
+	request = new XMLHttpRequest();
+	console.log("1 - request object created");
+
+	// Step 2
+	var url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
+
+	request.open("GET", url);
+
+	console.log("2 - opened request file");
+
+	// Step 3
+
+	request.onreadystatechange = function() {
+		console.log("3 - readystatechange event fired.");
+
+		if (request.readyState == 4 && request.status == 200) {
+
+			// Step 5
+			result = request.responseText;
+			var deckinfo = JSON.parse(result);
+			var id = deckinfo.deck_id;
+			window.id = id;
+			deal(id);
+		}
+		else if (request.readyState == 4 && request.status != 200) {
+
+			document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+
+		}
+
+		else if (request.readyState == 3) {
+
+			document.getElementById("data").innerHTML = "Too soon!  Try again";
+
+		}
+
+	}
+// Step 4
+	request.send();
+	console.log("4 - Request sent");
+}
+
+</script>
+
+<script>
+	function deal(id) {	
+		request = new XMLHttpRequest();
+		request.open("GET", "https://deckofcardsapi.com/api/deck/"+ id +"/draw/?count=4");
+		request.onreadystatechange = function() {
+			console.log("3 - readystatechange event fired.");
+
+			if (request.readyState == 4 && request.status == 200) {
+
+				// Step 5
+				result = request.responseText;
+				var gameinfo = JSON.parse(result);
+
+				//DEALER
+				var d_arr = [];
+				var d_score = 0;
+				var dealerpics = "";
+				for(var x = 0; x < 2; x++){
+					//for pics
+					dealerpics += "<img src =" + gameinfo.cards[x].image + ">";
+
+					var score = gameinfo.cards[x].value;
+					//for score
+					if (score == "JACK" || score == "QUEEN" ||score == "KING" || score == "10"){
+						score = 10;
+					}
+					else if (score == "ACE"){
+						score = 11;
+					}
+					else{
+						score = score.charCodeAt(0) - 48;
+					}
+					d_arr.push(score);
+					}
+
+
+				//calculating score
+				for (var x = 0; x < d_arr.length; x++){
+					d_score += d_arr[x];
+				}
+				//aces case
+				if (d_score > 21){
+					window.d_arr[0] = 1;
+					d_score = d_score - 10;
+				}
+
+				document.getElementById("dealer").innerHTML = dealerpics;
+				document.getElementById("dealerscore").innerHTML = d_score;
+
+
+				//PLAYER
+				var p_score = 0;
+				var p_arr = [];
+				var playerpics = "";
+				for(var x = 2; x < 4; x++){
+					//for pics
+					playerpics += "<img src =" + gameinfo.cards[x].image + ">";
+
+					var score = gameinfo.cards[x].value;
+					//for score
+					if (score == "JACK" || score == "QUEEN" ||score == "KING" || score == "10"){
+						score = 10;
+					}
+					else if (score == "ACE"){
+						score = 11;
+					}
+					else{
+						score = score.charCodeAt(0) - 48;
+					}
+					p_arr.push(score);
+					}
+
+
+				//calculating score
+				for (var x = 0; x < p_arr.length; x++){
+					p_score += p_arr[x];
+				}
+
+				window.p_arr = p_arr;
+				window.d_arr = d_arr;
+
+				//aces case
+				if (p_score > 21){
+					window.p_arr[0] = 1;
+					p_score = p_score - 10;
+				}
+
+				
+				document.getElementById("playerscore").innerHTML = p_score;
+				document.getElementById("player").innerHTML = playerpics;
+			}
+		}
+
+		// Step 4
+		request.send();
+		console.log("4 - Request sent");
+	}
+
+</script>
+
+<script>
+function hit(){
+	request = new XMLHttpRequest();
+	request.open("GET", "https://deckofcardsapi.com/api/deck/"+ window.id +"/draw/?count=1");
+	request.onreadystatechange = function() {
+		console.log("3 - readystatechange event fired.");
+
+		if (request.readyState == 4 && request.status == 200) {
+
+			// Step 5
+			result = request.responseText;
+			var gameinfo = JSON.parse(result);
+
+			//picture
+			var output = document.getElementById("player").innerHTML;
+			output += "<img src =" + gameinfo.cards[0].image + ">";
+			document.getElementById("player").innerHTML = output;
+			
+			//value
+			var score = gameinfo.cards[0].value;
+			if (score == "JACK" || score == "QUEEN" ||score == "KING" || score == "10"){
+				score = 10;
+			}
+			else if (score == "ACE"){
+				score = 11;
+			}
+			else{
+				score = score.charCodeAt(0) - 48;
+			}
+			window.p_arr.push(score);
+
+			//calculating
+			var p_score = 0;
+			for (var x = 0; x < window.p_arr.length; x++){
+					p_score += window.p_arr[x];
+			}
+			document.getElementById("playerscore").innerHTML = p_score;
+			
+			//losing
+			if (p_score > 21){
+				//check if aces to fix score over
+				for (var x = 0; x < window.p_arr.length; x++){
+					if (window.p_arr[x] == 11){
+						window.p_arr[x] == 1;
+						p_score = p_score - 10;
+						document.getElementById("playerscore").innerHTML = p_score;
+						x = 55;
+					}
+				}
+				//no aces to change
+				if (p_score > 21){
+					lose();
+				}
+			}
+		}
+
+	}
+
+	// Step 4
+	request.send();
+	console.log("4 - Request sent");
+}
+</script>
+
+<script>
+function stand(){
+	//calculating
+	var d_score = 0;
+	for (var x = 0; x < window.d_arr.length; x++){
+		d_score += window.d_arr[x];
+	}
+
+	if (d_score < 17){
+		request = new XMLHttpRequest();
+		request.open("GET", "https://deckofcardsapi.com/api/deck/"+ window.id +"/draw/?count=1");
+
+		request.onreadystatechange = function() {
+			console.log("3 - readystatechange event fired.");
+
+			if (request.readyState == 4 && request.status == 200) {
+
+				// Step 5
+				result = request.responseText;
+				var gameinfo = JSON.parse(result);
+
+				//picture
+				var output = document.getElementById("dealer").innerHTML;
+				output += "<img src =" + gameinfo.cards[0].image + ">";
+				document.getElementById("dealer").innerHTML = output;
+				
+				//value
+				var score = gameinfo.cards[0].value;
+				if (score == "JACK" || score == "QUEEN" ||score == "KING" || score == "10"){
+					score = 10;
+				}
+				else if (score == "ACE"){
+					score = 11;
+				}
+				else{
+					score = score.charCodeAt(0) - 48;
+				}
+				window.d_arr.push(score);
+
+				//calculating
+				var d_score = 0;
+				for (var x = 0; x < window.d_arr.length; x++){
+						d_score += window.d_arr[x];
+					}
+				document.getElementById("dealerscore").innerHTML = d_score;
+				
+				//dealer loses
+				if (d_score > 21){
+					//check if aces to fix score over
+					for (var x = 0; x < window.d_arr.length; x++){
+						if (window.d_arr[x] == 11){
+							window.d_arr[x] == 1;
+							d_score = d_score - 10;
+							document.getElementById("dealerscore").innerHTML = d_score;
+							x = 55;
+						}
+						stand();
+					}
+
+					//no aces to change
+					if (d_score > 21){
+						win();
+					}
+				}
+
+				//dealer hits again
+				stand();
+			}
+			
+		}
+			// Step 4
+		request.send();
+		console.log("4 - Request sent");
+
+	}
+	if (d_score >= 17 && d_score <=21){
+		check(d_score);
+	}
+}
+</script>
+
+<script>
+function check(d_score){
+	var p_score = 0;
+		for (var x = 0; x < window.p_arr.length; x++){
+				p_score += window.p_arr[x];
+		}
+
+		if (d_score > p_score){
+			lose();
+		}
+		else if (d_score < p_score){
+			win();
+		}
+		else{
+			tie();
+		}
+}
+</script>
+
+<script>
+function lose(){
+	var again = confirm("You lose! Play again?")
+	if (again == true){
+		load();
+	}
+}
+</script>
+
+<script>
+function win(){
+	var again = confirm("You win! Play again?")
+	if (again == true){
+		load();
+	}
+}
+</script>
+
+<script>
+function tie(){
+	var again = confirm("It's a tie! Play again?")
+	if (again == true){
+		load();
+	}
+}
+</script>
+
+
+
+</head>
+
+
+<body onload="load()">
+
+	<h1>Dealer</h1>
+	<div id = "dealerscore"></div>
+	<div id = "dealer"></div>
+
+	<h1>Player</h1>
+	<div id = "playerscore"></div>
+	<div id = "player"></div>
+
+
+	<form>
+	<button type ="button" onclick="hit()">Hit</button>
+	<button type ="button" onclick="stand()">Stand</button>
+	</form>
+
+</body>
+</html>

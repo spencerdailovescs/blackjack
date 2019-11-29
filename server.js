@@ -1,8 +1,10 @@
-
+// blackjackComp20
+// Comp20Final
 
 const express = require('express');
 
 const app = express();
+const nodemailer = require('nodemailer')
 
 // serve files from the public directory
 app.use(express.static('public'));
@@ -14,8 +16,21 @@ app.listen(8080, () => {
 
 // serve the homepage
 app.get('/', (req, res) => {
+	// console.log("ho")
   res.sendFile(__dirname + '/index.html');
+  // var domain = req.headers.host
+	// console.log(domain)
 });
+
+app.post("server.js", function(req, res) {
+  console.log(req.body); // this will output "The data you want to send to your server"
+  // var data = yourFunction();
+  res.status(200).send(data); // the status 200 is the default one, but this is how you can simply change it
+})
+
+// app.get('/', function(req,res) {
+
+// })
 
 
 //*********** node stuff

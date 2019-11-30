@@ -12,28 +12,33 @@ stand_button.addEventListener('click', function(e) {
   stand();
 });
 
-
-const login_button = document.getElementById('login');
-login_button.addEventListener('click', function(e) {
-	console.log('Login button was clicked')
-	login("http://localhost:8080/server.js","Testing", 
-function tester(text) {
-	console.log(text)
-});
-})
-
-
-
 function login(url, data, callback) {
   var req = new XMLHttpRequest();
+  console.log(data)
   req.open("POST", url, true);
   req.send(data);
   req.onload = function(e) {
     if (this.status == 200) { // if the HTTP response code is 200 (OK)
-      callback(e.responseText); // passing the result of the request to the callback function 
+    	// console.log(e.responseText)
+      callback(e.responseJson); // passing the result of the request to the callback function 
     }
   };
 }
+
+
+const login_button = document.getElementById('login');
+login_button.addEventListener('click', function (e) {
+	console.log("Login button was clicked");
+	// data = JSON.parse('{"testing": "hi", "count":42}')
+	// data = '{"testing": "hi", "count":42}'
+	data = "wpk235@gmail.com "
+	login("http://localhost:8080",data, function print_post(text) {
+		console.log(text)
+	})
+})
+
+
+
 function load() {
 	// Step 1
 	request = new XMLHttpRequest();

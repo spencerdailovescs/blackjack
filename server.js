@@ -5,9 +5,21 @@ const express = require('express');
 
 const app = express();
 const nodemailer = require('nodemailer')
-
+const bodyParser = require('body-parser')
+// var router = express.Router();
 // serve files from the public directory
 app.use(express.static('public'));
+// app.use(bodyParser);
+	app.use(function(req, res, next) {
+	  
+	    req.headers['content-type'] = 'application/x-www-form-urlencoded ';
+	    next();
+
+	});
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+// app.use('/', router);
+
 
 // start the express web server listening on 8080
 app.listen(8080, () => {
@@ -22,11 +34,19 @@ app.get('/', (req, res) => {
 	// console.log(domain)
 });
 
-app.post("server.js", function(req, res) {
-  console.log(req.body); // this will output "The data you want to send to your server"
-  // var data = yourFunction();
+app.post("/", function(req, res) {
+  const form = JSON.stringify(req.body)
+  data = parse_email(form)
+  res.set('Content-Type', 'application/x-www-form-urlencoded ');
+  console.log(data)
   res.status(200).send(data); // the status 200 is the default one, but this is how you can simply change it
 })
+
+function parse_email(text) {
+	whitespace_free = text.replace(/\s/g,'')
+	i = text.split('"')
+	return i[1]
+}
 
 // app.get('/', function(req,res) {
 

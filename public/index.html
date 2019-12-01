@@ -3,7 +3,7 @@
 <head>
 <style>
 body{
-	text-align: center;	
+    text-align: center; 
 }
 </style>
 <meta charset="utf-8"/>
@@ -15,26 +15,16 @@ body{
 </head>
 
 
-<body onload="load()">
+<body>
+	<h1>Login</h1>
+    <form method="POST"  action="/game" >
+    <!-- <form> -->
+    	<input type="text" name="name">
+        <input type="email" name="email"/>
+        <input  type="Submit" value="Submit"/>
+    </form>
 
-	<h1>Dealer</h1>
-	<div id = "dealerscore"></div>
-	<div id = "dealer"></div>
-
-	<h1>Player</h1>
-	<div id = "playerscore"></div>
-	<div id = "player"></div>
-
-
-	<form>
-	<button type ="button" id="hit" >Hit</button>
-	<button type ="button" id="stand">Stand</button>
-	<!-- </form> -->
-	<!-- <form action="http://localhost:8080" method="Post"> -->
-	<button type ="button" id="login">login</button>
-	</form>
-<script type="text/javascript" src="client.js"></script>
-<!-- <script type="text/javascript" src="email.js"></script> -->
+<!-- <script type="text/javascript" src="client.js"></script> -->
 
 </body>
 </html>

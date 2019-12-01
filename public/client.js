@@ -12,30 +12,30 @@ stand_button.addEventListener('click', function(e) {
   stand();
 });
 
-function login(url, data, callback) {
-  var req = new XMLHttpRequest();
-  console.log(data)
-  req.open("POST", url, true);
-  req.send(data);
-  req.onload = function(e) {
-    if (this.status == 200) { // if the HTTP response code is 200 (OK)
-    	// console.log(e.responseText)
-      callback(e.responseJson); // passing the result of the request to the callback function 
-    }
-  };
-}
+// function login(url, data, callback) {
+//   var req = new XMLHttpRequest();
+//   console.log(data)
+//   req.open("POST", url, true);
+//   req.send(data);
+//   req.onload = function(e) {
+//     if (this.status == 200) { // if the HTTP response code is 200 (OK)
+//     	// console.log(e.responseText)
+//       callback(e.responseJson); // passing the result of the request to the callback function 
+//     }
+//   };
+// }
 
 
-const login_button = document.getElementById('login');
-login_button.addEventListener('click', function (e) {
-	console.log("Login button was clicked");
-	// data = JSON.parse('{"testing": "hi", "count":42}')
-	// data = '{"testing": "hi", "count":42}'
-	data = "wpk235@gmail.com "
-	login("http://localhost:8080",data, function print_post(text) {
-		console.log(text)
-	})
-})
+// const login_button = document.getElementById('login');
+// login_button.addEventListener('click', function (e) {
+// 	console.log("Login button was clicked");
+// 	// data = JSON.parse('{"testing": "hi", "count":42}')
+// 	// data = '{"testing": "hi", "count":42}'
+// 	data = "wpk235@gmail.com "
+// 	login("/",data, function print_post(text) {
+// 		console.log(text)
+// 	})
+// })
 
 
 

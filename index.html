@@ -8,48 +8,65 @@ body{
 </style>
 <meta charset="utf-8"/>
 <script>
-function load() {
-	// Step 1
-	request = new XMLHttpRequest();
-	console.log("1 - request object created");
+function start() {
+	var coins = parseInt(document.getElementById("coins").innerHTML);
+	var bet = parseInt(document.getElementById("bet").value);
 
-	// Step 2
-	var url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
-
-	request.open("GET", url);
-
-	console.log("2 - opened request file");
-
-	// Step 3
-
-	request.onreadystatechange = function() {
-		console.log("3 - readystatechange event fired.");
-
-		if (request.readyState == 4 && request.status == 200) {
-
-			// Step 5
-			result = request.responseText;
-			var deckinfo = JSON.parse(result);
-			var id = deckinfo.deck_id;
-			window.id = id;
-			deal(id);
-		}
-		else if (request.readyState == 4 && request.status != 200) {
-
-			document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
-
-		}
-
-		else if (request.readyState == 3) {
-
-			document.getElementById("data").innerHTML = "Too soon!  Try again";
-
-		}
-
+	//check if valid bet
+	if (bet > coins || bet < 0){
+		alert("Invalid bet!")
 	}
-// Step 4
-	request.send();
-	console.log("4 - Request sent");
+	else{
+		//update displays
+		var x = document.getElementById("info");
+		x.style.display = "none";
+		var y = document.getElementById("buttons");
+		y.style.display = "block";
+		var z = document.getElementById("game");
+		z.style.display = "block";
+
+		// Step 1
+		request = new XMLHttpRequest();
+		console.log("1 - request object created");
+
+		// Step 2
+		var url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
+
+		request.open("GET", url);
+
+		console.log("2 - opened request file");
+
+		// Step 3
+
+		request.onreadystatechange = function() {
+			console.log("3 - readystatechange event fired.");
+
+			if (request.readyState == 4 && request.status == 200) {
+
+				// Step 5
+				result = request.responseText;
+				var deckinfo = JSON.parse(result);
+				var id = deckinfo.deck_id;
+				window.id = id;
+				deal(id);
+			}
+			else if (request.readyState == 4 && request.status != 200) {
+
+				document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+
+			}
+
+			else if (request.readyState == 3) {
+
+				document.getElementById("data").innerHTML = "Too soon!  Try again";
+
+			}
+
+		}
+		// Step 4
+		request.send();
+		console.log("4 - Request sent");
+	}
 }
 
 </script>
@@ -57,7 +74,7 @@ function load() {
 <script>
 	function deal(id) {	
 		request = new XMLHttpRequest();
-		request.open("GET", "https://deckofcardsapi.com/api/deck/"+ id +"/draw/?count=4");
+		request.open("GET", "https://deckofcardsapi.com/api/deck/"+ id +"/draw/?count=3");
 		request.onreadystatechange = function() {
 			console.log("3 - readystatechange event fired.");
 
@@ -71,7 +88,7 @@ function load() {
 				var d_arr = [];
 				var d_score = 0;
 				var dealerpics = "";
-				for(var x = 0; x < 2; x++){
+				for(var x = 0; x < 1; x++){
 					//for pics
 					dealerpics += "<img src =" + gameinfo.cards[x].image + ">";
 
@@ -108,7 +125,7 @@ function load() {
 				var p_score = 0;
 				var p_arr = [];
 				var playerpics = "";
-				for(var x = 2; x < 4; x++){
+				for(var x = 1; x < 3; x++){
 					//for pics
 					playerpics += "<img src =" + gameinfo.cards[x].image + ">";
 
@@ -320,37 +337,68 @@ function check(d_score){
 
 <script>
 function lose(){
+	//display loss
 	setTimeout(function(){
-		var again = confirm("You lose! Play again?")
-		if (again == true){
-			load();
-		}
-	}, 1500);
+		alert("You lose!")
+	}, 1000);
+
+	//update funds
+	var coins = parseInt(document.getElementById("coins").innerHTML);
+	var bet = parseInt(document.getElementById("bet").value);
+	var total = coins - bet;
+	document.getElementById("coins").innerHTML = total;
+
+	//change display
+	var x = document.getElementById("info");
+	x.style.display = "block";
+	var y = document.getElementById("buttons");
+	y.style.display = "none";
 }
 </script>
 
 <script>
 function win(){
+	//display win
 	setTimeout(function(){
-		var again = confirm("You win! Play again?")
-		if (again == true){
-			load();
-		}
-	}, 1500);
+		alert("You win!")
+	}, 1000);
+
+	//update funds
+	var coins = parseInt(document.getElementById("coins").innerHTML);
+	var bet = parseInt(document.getElementById("bet").value);
+	var total = coins + bet;
+	document.getElementById("coins").innerHTML = total;
+
+	//change display
+	var x = document.getElementById("info");
+	x.style.display = "block";
+	var y = document.getElementById("buttons");
+	y.style.display = "none";
 }
 </script>
 
 <script>
 function tie(){
 	setTimeout(function(){
-		var again = confirm("It's a tie! Play again?")
-		if (again == true){
-			load();
-		}
-	}, 1500);
+		alert("It's a tie!")
+	}, 1000);
+
+	//change display
+	var x = document.getElementById("info");
+	x.style.display = "block";
+	var y = document.getElementById("buttons");
+	y.style.display = "none";
 }
 </script>
 
+<script>
+function load(){
+	//THIS IS WHERE TO GET INFO STORED FROM THE DATABASE
+	document.getElementById("coins").innerHTML = 1000;
+	var z = document.getElementById("game");
+	z.style.display = "none";
+}
+</script>
 
 
 </head>
@@ -358,19 +406,30 @@ function tie(){
 
 <body onload="load()">
 
-	<h1>Dealer</h1>
-	<div id = "dealerscore"></div>
-	<div id = "dealer"></div>
+	<h2>Coins</h2>
+	<p id="coins"></p>
 
-	<h1>Player</h1>
-	<div id = "playerscore"></div>
-	<div id = "player"></div>
-
-
-	<form>
-	<button type ="button" onclick="hit()">Hit</button>
-	<button type ="button" onclick="stand()">Stand</button>
+	<form id = "info">
+		Bet: 
+		<input type="text" id="bet" value = "0">
+		<button type ="button" onclick="start()">Deal</button>
 	</form>
+
+	<div id = "game">
+		<h1>Dealer</h1>
+		<div id = "dealerscore"></div>
+		<div id = "dealer"></div>
+
+		<h1>Player</h1>
+		<div id = "playerscore"></div>
+		<div id = "player"></div>
+
+
+		<form id = "buttons">
+			<button type ="button" onclick="hit()">Hit</button>
+			<button type ="button" onclick="stand()">Stand</button>
+		</form>
+	</div>
 
 </body>
 </html>

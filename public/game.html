@@ -10,8 +10,53 @@ body{
 
 
 
+</head>
 
-<!-- <script type="text/javascript" src="client.js"></script> -->
+
+<body onload="load()">
+
+    <h2>Coins</h2>
+    <p id="coins"></p>
+
+    <form id = "info">
+        Bet: 
+        <input type="text" id="bet" value = "0">
+        <button type ="button" onclick="start()">Deal</button>
+    </form>
+
+    <div id = "game">
+        <h1>Dealer</h1>
+        <div id = "dealerscore"></div>
+        <div id = "dealer"></div>
+
+        <h1>Player</h1>
+        <div id = "playerscore"></div>
+        <div id = "player"></div>
+
+
+        <form id = "buttons">
+            <button type ="button" onclick="hit()">Hit</button>
+            <button type ="button" onclick="stand()">Stand</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="client.js"></script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+    text-align: center; 
+}
+</style>
+<meta charset="utf-8"/>
+
+
+
+
 </head>
 
 
@@ -33,4 +78,4 @@ body{
     <script type="text/javascript" src="client.js"></script>
 
 </body>
-</html>
+</html> -->

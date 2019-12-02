@@ -12,7 +12,7 @@
 /*                              Setup
 //----------------------------------------------------------------------------\\
 */
-
+var DEF_BALANCE = 1000
 const express = require('express');
 const app = express();
 const nodemailer = require('nodemailer')
@@ -61,7 +61,7 @@ app.post('/createUser', function(req, res) {
     }
     else{
 	  var pass = gen_random_pass(username+email)
-	  add_user_toDB(username, email, pass);
+	  add_user_toDB(username, email, pass, DEF_BALANCE);
 	  console.log("Password (generated): " + pass)
 	  send_password(pass, email)
 	  res.status(200).sendFile(__dirname + '/public/create_user_succ.html')
@@ -88,6 +88,7 @@ app.post('/fgtPass', function(req, res) {
 app.post("/login", function(req, res) {
   const user = JSON.parse(JSON.stringify(req.body))
   console.log(user)
+  global.user = user.username
   if (check_login(user.username, user.passwd)) {
      res.status(200).sendFile(__dirname + '/public/game.html')
   }
@@ -95,6 +96,29 @@ app.post("/login", function(req, res) {
   	res.status(200).sendFile(__dirname + '/public/login_fail.html')
   }
 })
+
+app.post("/bet_l", function(req, res) {
+  const total = JSON.parse(JSON.stringify(req.body))
+  console.log(total)
+  // var curr = get_currency(global.user)
+  update_currency(global.user, total)
+  //STILL MUST RETURN CURRENCY
+  res.status(200).sendFile(__dirname + '/public/game.html')
+  res.end("yes")
+})
+
+app.post("/bet_w", function(req, res) {
+  const total = JSON.parse(JSON.stringify(req.body))
+  console.log(total)
+  // var curr = get_currency(global.user)
+  // var curr = curr + curr_gain
+  update_currency(global.user, total)
+  //STILL MUST RETURN CURRENCY
+  res.status(200).sendFile(__dirname + '/public/game.html')
+  res.end("yes")
+  
+})
+
 
 
 
@@ -161,12 +185,15 @@ function get_password(email) {
 
 
 //Adds a user to the database by adding two key value pairs (user, pass) (email, pass)
-function add_user_toDB(user, email, pass) {
+//Also needs to add balance.
+function add_user_toDB(user, email, pass, balance) {
 	//add the key value pairs however makes sense
 	//
-	//probably two?:
+	//probably three?:
 	// (user, pass)
+	// (user, balance)
 	// (email, pass)
+
 	// (that way we can do forgotten password / login with email or username)
 	//
 	//no return value
@@ -199,3 +226,10 @@ function unique_email_check(email) {
 	return false;
 }
 
+function update_currency() {
+
+}
+
+function get_currency() {
+	return 1000
+}

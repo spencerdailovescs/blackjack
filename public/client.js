@@ -1,3 +1,28 @@
+USERNAME = ""
+
+function login() {
+	console.log("linked")
+	var req = new XMLHttpRequest()
+	req.open("POST", "/login")
+	req.onreadystatechange = function () {
+		USERNAME = req.responseText
+	}
+	var user = document.getElementById("user").value
+	USERNAME = user
+	console.log(USERNAME)
+	var pass = document.getElementById("pass").value
+	// var user = "tug"
+	// var pass = "till"
+	// console.log(pass)
+	// var data = '{"user":' + user + '}'
+	// console.log("data:" + data)
+	data = '{ "username":' + user + ',"passwd":' + pass + '}'
+	req.setRequestHeader("Content-type", "application/json")
+	req.send(data)
+	
+
+}
+
 
 function start() {
     var coins = parseInt(document.getElementById("coins").innerHTML);
@@ -294,8 +319,8 @@ function lose(){
 function send_loss(curr) {
 	var req = new XMLHttpRequest()
 	req.open("POST", "/bet_l");
-	req.onreadystatechange = function(e) {
-		console.log(e.responseText)
+	req.onreadystatechange = function() {
+		console.log(req.responseText)
 	}
 	var data = '{"balance":' + curr + '}'
 	console.log(data)
@@ -325,8 +350,8 @@ function win(){
 function send_win(curr) {
 	var req = new XMLHttpRequest()
 	req.open("POST", "/bet_w");
-	req.onreadystatechange = function(e) {
-		console.log(e.responseText)
+	req.onreadystatechange = function() {
+		console.log(req.responseText)
 	}
 	var data = '{"balance":' + curr + '}'
 	console.log(data)
@@ -349,6 +374,8 @@ function tie(){
 
 function load(){
     //THIS IS WHERE TO GET INFO STORED FROM THE DATABASE
+    console.log(USERNAME)
+    document.getElementById("user_disp").innerHTML = USERNAME
     document.getElementById("coins").innerHTML = 1000;
     var z = document.getElementById("game");
     z.style.display = "none";

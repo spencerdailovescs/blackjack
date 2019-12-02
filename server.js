@@ -103,8 +103,9 @@ app.post("/bet_l", function(req, res) {
   // var curr = get_currency(global.user)
   update_currency(global.user, total)
   //STILL MUST RETURN CURRENCY
-  res.status(200).sendFile(__dirname + '/public/game.html')
-  res.end("yes")
+  // res.status(200).sendFile(__dirname + '/public/game.html')
+  res.status(200).send(JSON.stringify(total))
+
 })
 
 app.post("/bet_w", function(req, res) {
@@ -114,9 +115,10 @@ app.post("/bet_w", function(req, res) {
   // var curr = curr + curr_gain
   update_currency(global.user, total)
   //STILL MUST RETURN CURRENCY
-  res.status(200).sendFile(__dirname + '/public/game.html')
-  res.end("yes")
-  
+  // res.status(200).sendFile(__dirname + '/public/game.html')
+  res.status(200).send(JSON.stringify(total))
+
+
 })
 
 

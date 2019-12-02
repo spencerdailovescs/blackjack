@@ -18,9 +18,9 @@ body{
 <body>
 	<h1>Login</h1>
     <form method="POST"  action="/login">
-        <input type="text" name="username" placeholder="Username" >
-        <input type="text" name="passwd" placeholder="Password" >
-        <input  type="Submit" value="Submit">
+        <input type="text" name="username" id="user" placeholder="Username" >
+        <input type="text" name="passwd" id="pass" placeholder="Password" >
+        <input  type="Submit" value="Submit" onclick="login()">
     </form>
     <form method="GET" action="/to_newUser">
     	<input type="submit" value="Create Account" name="create_account">
@@ -29,6 +29,6 @@ body{
     	<input type="submit" value="Forgot Password?" name="fgtpsswd">
     </form>
 
-
+<script type="text/javascript" src="client.js"></script>
 </body>
 </html>

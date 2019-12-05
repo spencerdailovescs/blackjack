@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="blackjack.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{
-	text-align: center;	
+* {
+box-sizing: border-box;       
 }
 </style>
 <meta charset="utf-8"/>
@@ -400,18 +402,66 @@ function load(){
 }
 </script>
 
+<script>
+    function play(){
+    var audio = document.getElementById("audio");
+    if (audio.paused)
+        audio.play();
+    else
+        audio.pause();
+}
+</script>
+    
+<script>
+function rules(){
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+    
+modal.style.display = "block";
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+}
+</script>
 
 </head>
 
 
 <body onload="load()">
 
-	<h2>Coins</h2>
-	<p id="coins"></p>
+ <div id="myModal" class="modal">
+        <div class="modal-content"><span class="close">&times;</span>
+        <p>Rules here</p>
+        </div>
+    </div>
+	
+<div class="row">
+    
+    <div class="column left" style="text-align: center">
+        
+    <img src = "spinningcoin.gif" class="responsive" width="75" height="75">
+	<p id="coins" style="color: rgba(229, 201, 21, 1)"></p><br><br>
+    <div class = "menu">MENU</div><br><br>
+    <img src = "spinningmusic.gif" class="responsive" width="75" height="75" onclick="play()"><br><br>
+    <audio id="audio" src="Stars.mp3"></audio>
+    <img src = "spinningrules.gif" id="rules" class="responsive" width="75" height="75" onclick="rules()"><br><br>
+        
+    </div>
+	
+<div class="column middle" style="text-align: center">
+        
+        <div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
 
 	<form id = "info">
 		Bet: 
-		<input type="text" id="bet" value = "0">
+		<input type="text" id="bet" value = "0" class="bet_input"><br><br>
 		<button type ="button" onclick="start()">Deal</button>
 	</form>
 
@@ -430,6 +480,22 @@ function load(){
 			<button type ="button" onclick="stand()">Stand</button>
 		</form>
 	</div>
+</div>
+
+    <div class="column right" style="text-align: center;">
+         <form name="test" method="post">
+         <div class = "background">CLICK TO CHANGE BACKGROUND:</div><br><br>
+         <img src = "spinninggreen.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#518d20';" value="green"><br><br>
+         <img src="spinninggray.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#4f4f4f';" value="gray"><br><br>
+         <img src="spinningblue.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#1948f0';" value="blue"><br><br>
+         <img src="spinningred.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#d83b3b';" value="red"><br><br>
+         </form>
+    </div>
+</div>
+	
+<script>
+document.bgColor = '#FFFFFF';
+</script>
 
 </body>
 </html>

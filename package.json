@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/spencerdailovescs/blackjack#readme",
   "dependencies": {
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongodb": "^3.3.5",
     "nodemailer": "^6.3.1"

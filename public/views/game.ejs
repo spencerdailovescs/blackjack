@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="blackjack.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+box-sizing: border-box;       
+}
+</style>
+<meta charset="utf-8"/>
+
+<script>
+    function play(){
+    var audio = document.getElementById("audio");
+    if (audio.paused)
+        audio.play();
+    else
+        audio.pause();
+}
+</script>
+    
+<script>
+function rules(){
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+    
+modal.style.display = "block";
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+}
+</script>
+
+
+</head>
+
+<body onload="load()">
+
+ <div id="myModal" class="modal">
+        <div class="modal-content"><span class="close">&times;</span>
+        <p>Rules here</p>
+        </div>
+    </div>
+    
+<div class="row">
+    
+    <div class="column left" style="text-align: center">
+    <form method="GET" action="/logout">
+        <input type="submit" value="Logout" name="logout">
+    </form>
+
+    <!-- <button type="button" onclick="logout()">Log Out</button> -->
+    <img src = "/assets/spinningcoin.gif" class="responsive" width="75" height="75">
+    <p id="coins" style="color: rgba(229, 201, 21, 1)"><%= user %></p>
+
+    <p id="coins" style="color: rgba(229, 201, 21, 1)"><%= balance %></p><br>
+
+    <div class = "menu">MENU</div><br><br>
+    <img src = "/assets/spinningmusic.gif" class="responsive" width="75" height="75" onclick="play()"><br><br>
+    <audio id="audio" src="/assets/Stars.mp3"></audio>
+    <img src = "/assets/spinningrules.gif" id="rules" class="responsive" width="75" height="75" onclick="rules()"><br><br>
+        
+    </div>
+    
+<div class="column middle" style="text-align: center">
+        
+        <div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
+
+    <form id = "info">
+        Bet: 
+        <input type="text" id="bet" value = "0" class="bet_input"><br><br>
+        <button type ="button" onclick="start()">Deal</button>
+    </form>
+
+    <div id = "game">
+        <h1>Dealer</h1>
+        <div id = "dealerscore"></div>
+        <div id = "dealer"></div>
+
+        <h1>Player</h1>
+        <div id = "playerscore"></div>
+        <div id = "player"></div>
+
+
+        <form id = "buttons">
+            <button type ="button" onclick="hit()">Hit</button>
+            <button type ="button" onclick="stand()">Stand</button>
+        </form>
+    </div>
+</div>
+
+    <div class="column right" style="text-align: center;">
+         <form name="test" method="post">
+         <div class = "background">CLICK TO CHANGE BACKGROUND:</div><br><br>
+         <img src = "/assets/spinninggreen.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#518d20';" value="green"><br><br>
+         <img src="/assets/spinninggray.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#4f4f4f';" value="gray"><br><br>
+         <img src="/assets/spinningblue.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#1948f0';" value="blue"><br><br>
+         <img src="/assets/spinningred.gif" class="responsive" width="75" height="75" OnClick="document.bgColor = '#d83b3b';" value="red"><br><br>
+         </form>
+    </div>
+</div>
+    
+
+<!-- 
+
+<body onload="load()">
+    <h3>User</h3>
+    <p id="user_disp"><%= user %></p>
+    <h2>Coins</h2>
+    <p id="coins"><%= balance %></p>
+
+    <form id = "info">
+        Bet: 
+        <input type="text" id="bet" value = "0">
+        <button type ="button" onclick="start()">Deal</button>
+    </form>
+
+    <div id = "game">
+        <h1>Dealer</h1>
+        <div id = "dealerscore"></div>
+        <div id = "dealer"></div>
+
+        <h1>Player</h1>
+        <div id = "playerscore"></div>  
+        <div id = "player"></div>
+
+
+        <form id = "buttons">
+            <button type ="button" onclick="hit()">Hit</button>
+            <button type ="button" onclick="stand()">Stand</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="client.js"></script>
+ -->
+    <script type="text/javascript" src="/../client.js"></script>
+
+</body>
+</html>

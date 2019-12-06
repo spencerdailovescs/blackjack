@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+    text-align: center; 
+}
+</style>
+<meta charset="utf-8"/>
+
+</head>
+
+
+<body>
+	<h1>Oops! This email isn't associated with an account</h1>
+    <form method="POST"  action="/fgtPass" >
+    	<input type="email" name="Email" placeholder="Email">
+    	<input type="Submit" value="Submit">
+    </form>
+    <p>Try logging in again here: </p>
+    <form method="GET" action="/">
+    	<input type="submit" value="Login here">
+    </form>
+    <p>Or create an account here:</p>
+    <form method="GET" action="/to_newUser">
+    	<input type="submit" value="Login here">
+    </form>
+</body>
+</html>

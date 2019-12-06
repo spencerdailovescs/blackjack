@@ -1,5 +1,9 @@
 USERNAME = ""
 
+
+document.bgColor = '#FFFFFF';
+
+
 function login() {
 	console.log("linked")
 	var req = new XMLHttpRequest()
@@ -8,8 +12,6 @@ function login() {
 		USERNAME = req.responseText
 	}
 	var user = document.getElementById("user").value
-	USERNAME = user
-	console.log(USERNAME)
 	var pass = document.getElementById("pass").value
 	// var user = "tug"
 	// var pass = "till"
@@ -17,10 +19,18 @@ function login() {
 	// var data = '{"user":' + user + '}'
 	// console.log("data:" + data)
 	data = '{ "username":' + user + ',"passwd":' + pass + '}'
+	data = JSON.parse(data)
 	req.setRequestHeader("Content-type", "application/json")
 	req.send(data)
 	
 
+}
+
+function logout() {
+	console.log("LOGOUT")
+	var req = new XMLHttpRequest()
+	req.open("GET", "/logout")
+	req.send()
 }
 
 
@@ -323,6 +333,7 @@ function send_loss(curr) {
 		console.log(req.responseText)
 	}
 	var data = '{"balance":' + curr + '}'
+	// data = JSON.parse(data)
 	console.log(data)
 	req.setRequestHeader("Content-type", "application/json")
 	req.send(data)
@@ -374,9 +385,9 @@ function tie(){
 
 function load(){
     //THIS IS WHERE TO GET INFO STORED FROM THE DATABASE
-    console.log(USERNAME)
-    document.getElementById("user_disp").innerHTML = USERNAME
-    document.getElementById("coins").innerHTML = 1000;
+    // console.log(USERNAME)
+    // document.getElementById("user_disp").innerHTML = USERNAME
+    // document.getElementById("coins").innerHTML = 1000;
     var z = document.getElementById("game");
     z.style.display = "none";
 }

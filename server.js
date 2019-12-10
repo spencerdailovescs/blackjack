@@ -18,21 +18,26 @@ const app = express();
 const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser')
 const hasher = require('./hash')
-// const html = require('html')
+const PORT = process.env.PORT || 8080
+const mongo = require('mongodb').MongoClient;
+// const client = require('socket.io')
+var uri = "mongodb://heroku_2pjgcqzw:pev9o638fqllla6p8ti6f5logf@ds125841.mlab.com:25841/heroku_2pjgcqzw";
+
+// mongo.connect(uri, function (err, database) {
+// 	if (err) throw err;
+//   	console.log("Database connected!");
+//  	// database.close();
+// })
 app.use(express.static('public'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
-const path = require('path');
-
-app.set('views', path.join(__dirname, '/public/views'));
-app.set('view engine', 'ejs');
-app.listen(8080, () => {
-  console.log('listening on 8080');
+app.listen(PORT, () => {
+  console.log(`listening on port ${ PORT }`);
 });
 
 //Serves homepage (also fits under GET requests)
 app.get('/', (req, res) => {
-  res.status(200).render('index');
+  res.sendFile(__dirname + '/index.html');
 });
 
 /*                              GET requests
@@ -230,6 +235,17 @@ function get_password(email) {
 //Adds a user to the database by adding two key value pairs (user, pass) (email, pass)
 //Also needs to add balance.
 function add_user_toDB(user, email, pass, balance) {
+	mongo.connect(uri, function (err, database) {
+		if (err) throw err;
+	  	console.log("Database connected!");
+	 	var dbobject = database.db("heroku_2pjgcqzw");
+	 	var myobj = { Username: user, Email: email, Password: pass, Balance: balance }; 
+	 	dbobject.collection("blackjack").insertOne(myobj, function(err, res) {
+	 		if (err) throw err;
+	 		console.log("1 user/document inserted!");
+	 	 database.close();
+	 	});
+	});
 	console.log("----add_user_toDB params----")
 	console.log("user: " + user)
 	console.log("pass: " + pass)

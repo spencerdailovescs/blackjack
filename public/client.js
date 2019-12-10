@@ -222,10 +222,8 @@ function hit(){
 
 function stand(){
     //calculating
-    var d_score = 0;
-    for (var x = 0; x < window.d_arr.length; x++){
-        d_score += window.d_arr[x];
-    }
+    var d_score = document.getElementById("dealerscore").innerHTML;
+	
     if (d_score < 17){
         request = new XMLHttpRequest();
         request.open("GET", "https://deckofcardsapi.com/api/deck/"+ window.id +"/draw/?count=1");

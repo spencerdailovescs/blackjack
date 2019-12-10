@@ -222,7 +222,7 @@ function hit(){
 
 function stand(){
     //calculating
-    var d_score = document.getElementById("dealerscore").innerHTML;
+    var d_score = parseInt(document.getElementById("dealerscore").innerHTML);
 	
     if (d_score < 17){
         request = new XMLHttpRequest();
@@ -266,13 +266,10 @@ function stand(){
                             d_score = d_score - 10;
                             document.getElementById("dealerscore").innerHTML = d_score;
                             x = 55;
-                            stand();
+                     
                         }
                     }
-                    //no aces to change
-                    if (d_score > 21){
-                        win();
-                    }
+                   
                 }
                 //dealer hits again
                 stand();
@@ -283,7 +280,7 @@ function stand(){
         request.send();
         console.log("4 - Request sent");
     }
-    if (d_score >= 17 && d_score <=21){
+    else{
         check(d_score);
     }
 }
@@ -294,9 +291,13 @@ function check(d_score){
         for (var x = 0; x < window.p_arr.length; x++){
                 p_score += window.p_arr[x];
         }
-        if (d_score > p_score){
-            lose();
-        }
+	
+	if (d_score > 21){
+	    win()
+	}
+	else if (d_score > p_score){
+	    lose();
+	}
         else if (d_score < p_score){
             win();
         }

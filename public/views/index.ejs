@@ -1,7 +1,9 @@
 
+
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="index.css">
 <style>
 body{
     text-align: center; 
@@ -16,19 +18,24 @@ body{
 
 
 <body>
+    <div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
+    
 	<h1>Login</h1>
     <form method="POST"  action="/login">
         <input type="text" name="username" id="user" placeholder="Username" >
-        <input type="text" name="passwd" id="pass" placeholder="Password" >
-        <input  type="Submit" value="Submit" onclick="login()">
-    </form>
+        <input type="text" name="passwd" id="pass" placeholder="Password" ><br><br>
+        <input  type="Submit1" value="Submit" onclick="login()">
+    </form><br>
     <form method="GET" action="/to_newUser">
     	<input type="submit" value="Create Account" name="create_account">
-    </form>
+    </form><br>
     <form method="GET" action="/to_fgtPass">
     	<input type="submit" value="Forgot Password?" name="fgtpsswd">
     </form>
 
 <script type="text/javascript" src="client.js"></script>
+    
+<script>document.bgColor = '#518d20';</script> 
+    
 </body>
 </html>

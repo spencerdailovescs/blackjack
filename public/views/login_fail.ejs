@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="login_fail.css">
 <style>
 body{
     text-align: center; 
@@ -15,17 +16,21 @@ body{
 
 
 <body>
+    
+<div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
+    
 	<h1>Oops! Your username or password is wrong!</h1>
     <form method="POST"  action="/login">
         <input type="text" name="username" placeholder="Username" >
-        <input type="text" name="passwd" placeholder="Password" >
-        <input  type="Submit" value="Submit">
-    </form>
+        <input type="text" name="passwd" placeholder="Password" ><br><br>
+        <input  type="Submit1" value="Submit">
+    </form><br>
     <form method="GET" action="/to_newUser">
     	<input type="submit" value="Create Account" name="create_account">
-    </form>
+    </form><br>
     <form method="GET" action="/to_fgtPass">
     	<input type="submit" value="Forgot Password?" name="fgtpsswd">
     </form>
+    <script>document.bgColor = '#518d20';</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="forgot_pass.css">
 <style>
 body{
     text-align: center; 
@@ -16,15 +17,18 @@ body{
 
 
 <body>
+    
+    <div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
 	<h1>Oops! You forgot your password</h1>
 	<h2>Enter your email and we will send you your password!</h2>
     <form method="POST"  action="/fgtPass" >
     	<input type="email" name="Email" placeholder="Email">
-    	<input type="Submit" value="Submit">
+    	<input type="Submit1" value="Submit">
     </form>
-    <p>Or login here</p>
+    <h2>Or login here</h2>
     <form method="GET"  action="/" >
     	<input type="Submit" value="Login Here" />
     </form>
+    <script>document.bgColor = '#518d20';</script>
 </body>
 </html>

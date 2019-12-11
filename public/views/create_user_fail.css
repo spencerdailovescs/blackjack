@@ -1,0 +1,91 @@
+@font-face {
+  font-family: 'Righteous-Regular';
+  src: url('Righteous-Regular.eot?#iefix') format('embedded-opentype'),  url('Righteous-Regular.woff') format('woff'), url('Righteous-Regular.ttf')  format('truetype'), url('Righteous-Regular.svg#Righteous-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*{
+font-family: 'Righteous-Regular';
+}
+
+input[type=submit]{
+  color: black;
+  font-size: 1em;
+  background-color: rgba(255, 209, 41, 1);
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 100%;
+  height: 90px;
+  width: 180px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+input[type=submit1]{
+  color: black;
+  font-size: 1em;
+  background-color: rgba(255, 209, 41, 1);
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit1]:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+input[type=email]{
+width: 300px;
+height: 50px;
+}
+
+input[type=text]{
+width: 300px;
+height: 50px;
+}
+
+HTML CSSResult
+EDIT ON
+.wordart {
+  font-family: 'Righteous-Regular';
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wordart.radial.text {
+    background: #fffa28;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…BoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-radial-gradient(center, ellipse cover, #fffa28 0%, #ec8a39 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #fffa28), color-stop(100%, #ec8a39));
+    background: -webkit-radial-gradient(center, ellipse cover, #fffa28 0%, #ec8a39 100%);
+    background: -o-radial-gradient(center, ellipse cover, #fffa28 0%, #ec8a39 100%);
+    background: -ms-radial-gradient(center, ellipse cover, #fffa28 0%, #ec8a39 100%);
+    background: radial-gradient(ellipse at center, #fffa28 0%, #ec8a39 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffa28', endColorstr='#ec8a39', GradientType=1);
+    font-family: Impact, sans-serif;
+    font-weight: bold;
+    font-size: 8vw;
+    border: dotted;
+    border-width: 5px;
+}
+

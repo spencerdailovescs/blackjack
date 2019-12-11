@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="create_user_fail.css">
 <style>
 body{
     text-align: center; 
@@ -16,18 +17,19 @@ body{
 
 
 <body>
+    <div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
 	<h1>Oops! Your username or email has already been used. Please alter your info</h1>
     <form method="POST"  action="/createUser" >
     	<input type="text" name="Username" placeholder="Username"/>
-        <input type="email" name="email" placeholder="Email" />
-        <input type="Submit" value="Submit"/>
+        <input type="email" name="email" placeholder="Email" /><br><br>
+        <input type="Submit1" value="Submit"/>
     </form>
-    <p>Or login here: </p>
+    <h2>Or login here: </h2>
     <form method="GET"  action="/" >
     	<input type="Submit" value="Login Here" />
     </form>
 
 <!-- <script type="text/javascript" src="client.js"></script> -->
-
+<script>document.bgColor = '#518d20';</script>
 </body>
 </html>

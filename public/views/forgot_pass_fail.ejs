@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="forgot_pass_fail.css">
 <style>
 body{
     text-align: center; 
@@ -12,10 +13,11 @@ body{
 
 
 <body>
+    <div class="wordart radial text" style="text-align: center">BLACKJACK</div><br><br>
 	<h1>Oops! This email isn't associated with an account</h1>
     <form method="POST"  action="/fgtPass" >
     	<input type="email" name="Email" placeholder="Email">
-    	<input type="Submit" value="Submit">
+    	<input type="Submit1" value="Submit">
     </form>
     <p>Try logging in again here: </p>
     <form method="GET" action="/">
@@ -25,5 +27,6 @@ body{
     <form method="GET" action="/to_newUser">
     	<input type="submit" value="Login here">
     </form>
+    <script>document.bgColor = '#518d20';</script>
 </body>
 </html>
